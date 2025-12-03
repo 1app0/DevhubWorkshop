@@ -10,6 +10,13 @@ env:
   solutionPath: "src/ShoppingCart.sln"
 
 jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    steps:
+      uses: zaproxy/action-full-scan@v0.13.0
+      with:
+        target: "https://mindsandco.com/"
+
   scan:
     runs-on: ubuntu-latest
     steps:
