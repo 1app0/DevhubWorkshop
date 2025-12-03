@@ -2,15 +2,14 @@ name: .NET Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   solutionPath: "src/ShoppingCart.sln"
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -18,12 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed for git versioning logic
+          fetch-depth: 0 # needed for git versioning logic
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v4.2.0
         with:
-          versionSpec: '6.4.x'
+          versionSpec: "6.4.x"
 
       - name: Determine Version for project
         id: version_step
@@ -38,10 +37,14 @@ jobs:
       # Restore packages
       - name: Restore dependencies
         run: dotnet restore ${{ env.solutionPath }}
-      
+
       - name: Build
         run: dotnet build ${{ env.solutionPath }} --configuration Release --no-restore
 
+      - name: Run ReSharper Code Inspection
+        uses: JetBrains/ReSharper-InspectCode@v0.11
+        with:
+          solution: ${{ env.solutionPath}}
+
       - name: Test
         run: dotnet test ${{ env.solutionPath }} --no-restore --no-build --configuration Release --verbosity normal
-      
