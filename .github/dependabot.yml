@@ -4,5 +4,9 @@ updates:
     directory: "./src"
     schedule:
       interval: "daily"
+    groups:
+      nuget-dependencies:
+        patterns:
+          - "*"
     commit-message:
       prefix: "[deeeeepeeeendaaaaaBOT]"
