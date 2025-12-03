@@ -19,40 +19,75 @@ jobs:
         with:
           fetch-depth: 0 # needed for git versioning logic
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v4.2.0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          versionSpec: "6.4.x"
+          java-version: 17
+          distribution: 'zulu'
 
-      - name: Determine Version for project
-        id: version_step
-        uses: gittools/actions/gitversion/execute@v4.2.0
-
-      # Install .NET SDK
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
         with:
-          dotnet-version: "9.0.x" # or 7.0.x / 6.0.x etc.
+          path: ${{ runner.temp }}\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      # Restore packages
-      - name: Restore dependencies
-        run: dotnet restore ${{ env.solutionPath }}
+      - name: Cache SonarQube scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
 
-      - name: Build
-        run: dotnet build ${{ env.solutionPath }} --configuration Release --no-restore
-
-      - name: Install ReSharper tools
+      - name: Install SonarQube scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
         run: |
-          dotnet new tool-manifest
-          dotnet tool install JetBrains.ReSharper.GlobalTools --version 2025.1.2
-          dotnet tool restore
-      - name: Run Code Inspection
-        run: |
-          dotnet tool run jb inspectcode ${{ env.solutionPath }} -o="${{ runner.temp }}/inspectcode.json" --no-build
-      - name: Analyze Code Inspection results
-        shell: pwsh
-        run: |
-          ./.github/workflows/scripts/analyzeInspectCodeOutput.ps1 -inspectOutputPath ${{ runner.temp }}/inspectcode.json
+          New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
 
-      - name: Test
-        run: dotnet test ${{ env.solutionPath }} --no-bulid --no-restore --verbosity normal
+      - name: Build and analyze
+        shell: powershell
+        run: |
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"AVA-shoppingCart" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          dotnet build
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+      # - name: Install GitVersion
+      #   uses: gittools/actions/gitversion/setup@v4.2.0
+      #   with:
+      #     versionSpec: "6.4.x"
+
+      # - name: Determine Version for project
+      #   id: version_step
+      #   uses: gittools/actions/gitversion/execute@v4.2.0
+
+      # # Install .NET SDK
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v4
+      #   with:
+      #     dotnet-version: "9.0.x" # or 7.0.x / 6.0.x etc.
+
+      # # Restore packages
+      # - name: Restore dependencies
+      #   run: dotnet restore ${{ env.solutionPath }}
+
+      # - name: Build
+      #   run: dotnet build ${{ env.solutionPath }} --configuration Release --no-restore
+
+      # - name: Install ReSharper tools
+      #   run: |
+      #     dotnet new tool-manifest
+      #     dotnet tool install JetBrains.ReSharper.GlobalTools --version 2025.1.2
+      #     dotnet tool restore
+      # - name: Run Code Inspection
+      #   run: |
+      #     dotnet tool run jb inspectcode ${{ env.solutionPath }} -o="${{ runner.temp }}/inspectcode.json" --no-build
+      # - name: Analyze Code Inspection results
+      #   shell: pwsh
+      #   run: |
+      #     ./.github/workflows/scripts/analyzeInspectCodeOutput.ps1 -inspectOutputPath ${{ runner.temp }}/inspectcode.json
+
+      # - name: Test
+      #   run: dotnet test ${{ env.solutionPath }} --no-bulid --no-restore --verbosity normal
