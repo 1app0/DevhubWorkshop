@@ -13,17 +13,18 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     steps:
-      uses: zaproxy/action-full-scan@v0.13.0
-      with:
-        target: "https://mindsandco.com/"
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.10.0 
+        with:
+          target: "https://mindsandco.com/"
 
   scan:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-      uses: gitleaks/gitleaks-action@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
