@@ -51,8 +51,7 @@ jobs:
           dotnet tool run jb inspectcode ${{ env.solutionPath }} -o="${{ runner.temp }}/inspectcode.json" --no-build
       - name: Analyze Code Inspection results
         run: |
-          $CodeInspectionResultPath = "${{ runner.temp }}/inspectcode.json"
-          ./scripts/analyzeInspectCodeOutput.ps1 -InputFile $CodeInspectionResultPath
+          ./scripts/analyzeInspectCodeOutput.ps1 -inspectOutputPath ${{ runner.temp }}/inspectcode.json
 
       - name: Test
         run: dotnet test ${{ env.solutionPath }} --no-bulid --no-restore --verbosity normal
