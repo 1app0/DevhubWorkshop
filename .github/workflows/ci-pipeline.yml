@@ -28,7 +28,7 @@ jobs:
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
-          path: ${{ runner.temp }}\cache
+          path: ${{ runner.temp }}/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
@@ -36,7 +36,7 @@ jobs:
         id: cache-sonar-scanner
         uses: actions/cache@v4
         with:
-          path: ${{ runner.temp }}\scanner
+          path: ${{ runner.temp }}/scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
 
@@ -51,7 +51,7 @@ jobs:
         shell: pwsh
         run: |
           ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"AVA-shoppingCart" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"          
-          dotnet build
+          dotnet build ${{ env.solutionPath }}
           ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       # - name: Install GitVersion
