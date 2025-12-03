@@ -41,10 +41,18 @@ jobs:
       - name: Build
         run: dotnet build ${{ env.solutionPath }} --configuration Release --no-restore
 
-      - name: Run ReSharper Code Inspection
-        uses: JetBrains/ReSharper-InspectCode@v0.11
-        with:
-          solution: ${{ env.solutionPath }}
+      - name: Install ReSharper tools
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install JetBrains.ReSharper.GlobalTools --version 2025.1.2
+          dotnet tool restore
+      - name: Run Code Inspection
+        run: |
+          dotnet tool run jb inspectcode ${{ env.solutionPath }} -o="${{ runner.temp }}/inspectcode.json" --no-build
+      - name: Analyze Code Inspection results
+        run: |
+          $CodeInspectionResultPath = "${{ runner.temp }}/inspectcode.json"
+          ./scripts/analyzeInspectCodeOutput.ps1 -InputFile $CodeInspectionResultPath
 
       - name: Test
-        run: dotnet test ${{ env.solutionPath }} --configuration Release --verbosity normal
+        run: dotnet test ${{ env.solutionPath }} --no-bulid --no-restore --verbosity normal
