@@ -1,27 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\Personal\\ShoppingCart\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj": {}
+    "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\Personal\\ShoppingCart\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj": {
+    "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\Personal\\ShoppingCart\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj",
+        "projectUniqueName": "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj",
         "projectName": "ShoppingCart.Db",
-        "projectPath": "C:\\Dev\\Personal\\ShoppingCart\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj",
-        "packagesPath": "C:\\Users\\AndersStrøm\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\Personal\\ShoppingCart\\src\\ShoppingCart.Db\\obj\\",
+        "projectPath": "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Db\\ShoppingCart.Db.csproj",
+        "packagesPath": "C:\\Users\\AlexVasilianov\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Db\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\AndersStrøm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\AlexVasilianov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/scadaminds/f5f8b22d-000b-4783-a5d3-c052c53f36ba/_packaging/VirtualWindFarm/nuget/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
@@ -55,20 +61,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.11, 9.0.11]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[9.0.11, 9.0.11]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[9.0.11, 9.0.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
