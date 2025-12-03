@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jQZKSckH20M=",
+  "dgSpecHash": "znOCPlg0EeQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\AlexVasilianov\\Desktop\\Work\\SacredKnowledge\\DevhubWorkshop\\src\\ShoppingCart.Tests\\ShoppingCart.Tests.csproj",
   "expectedPackageFiles": [
@@ -88,7 +88,8 @@
     "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.assert\\2.9.3\\xunit.assert.2.9.3.nupkg.sha512",
     "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.core\\2.9.3\\xunit.core.2.9.3.nupkg.sha512",
     "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.extensibility.core\\2.9.3\\xunit.extensibility.core.2.9.3.nupkg.sha512",
-    "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512"
+    "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
+    "C:\\Users\\AlexVasilianov\\.nuget\\packages\\xunit.runner.visualstudio\\2.8.2\\xunit.runner.visualstudio.2.8.2.nupkg.sha512"
   ],
   "logs": []
 }
