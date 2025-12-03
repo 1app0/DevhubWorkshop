@@ -44,7 +44,7 @@ jobs:
       - name: Run ReSharper Code Inspection
         uses: JetBrains/ReSharper-InspectCode@v0.11
         with:
-          solution: ${{ env.solutionPath}}
+          solution: ${{ env.solutionPath }}
 
       - name: Test
-        run: dotnet test ${{ env.solutionPath }} --no-restore --no-build --configuration Release --verbosity normal
+        run: dotnet test ${{ env.solutionPath }} --configuration Release --verbosity normal
