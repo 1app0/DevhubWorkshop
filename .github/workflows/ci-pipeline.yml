@@ -50,8 +50,9 @@ jobs:
         run: |
           dotnet tool run jb inspectcode ${{ env.solutionPath }} -o="${{ runner.temp }}/inspectcode.json" --no-build
       - name: Analyze Code Inspection results
+        shell: pwsh
         run: |
-          ./scripts/analyzeInspectCodeOutput.ps1 -inspectOutputPath ${{ runner.temp }}/inspectcode.json
+          ./.github/workflows/scripts/analyzeInspectCodeOutput.ps1 -inspectOutputPath ${{ runner.temp }}/inspectcode.json
 
       - name: Test
         run: dotnet test ${{ env.solutionPath }} --no-bulid --no-restore --verbosity normal
